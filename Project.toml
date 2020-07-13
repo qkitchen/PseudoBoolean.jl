@@ -1,0 +1,15 @@
+name = "PseudoBoolean"
+uuid = "ee772a30-e769-4066-82f4-73d492ed3270"
+authors = ["Adam Glos <aglos@iitis.pl>"]
+version = "0.1.0"
+
+[deps]
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
+
+[compat]
+julia = "^1"
