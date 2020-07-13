@@ -12,6 +12,6 @@ makedocs(
 )
 
 deploydocs(
-    repo = "github.com/Adam Glos/PseudoBoolean.jl.git",
+    repo = "github.com/qkitchen/PseudoBoolean.jl.git",
     push_preview = true
 )
