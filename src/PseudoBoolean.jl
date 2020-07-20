@@ -1,16 +1,16 @@
 module PseudoBoolean
 
 export
-   checked,
-   not_checked
+    BitVar,
+    BitVarArray,
+    size,
+    indexes,
+    name,
+    getindex
 
-function checked()
-   true
-end
-
-function not_checked() 
-   true
-end
+include("hierarchy.jl")
+include("variables.jl")
+include("binarymodels/binarymodels.jl")
 
 
 end # module
