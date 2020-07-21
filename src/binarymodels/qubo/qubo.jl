@@ -19,13 +19,14 @@ end
 ###############################################
 ################# conversions #################
 ###############################################
-# sugar syntac
+# sugar syntax
 function QUBO(vars::Vector{<:AbstractVariable},
               q::SparseMatrixCSC{T,Int},
               offset::T) where {T<:Real}
     QUBO{T}(vars, q, offset)
 end
 
+# QUBO(1.)
 function QUBO(offset::T) where T<:Real
     QUBO(AbstractVariable[], spzeros(0, 0), offset)
 end
@@ -52,6 +53,20 @@ end
 QUBO(x::BitVarSubArray) = QUBO(Float64, x)
 
 ###############################################
+################## calls ######################
+###############################################
+
+# syntax
+# julia> x = BitVar("x")
+# julia> a = BitAssignment(x)
+# julia> a["x"] = 1
+# julia> q = QUBO(x)
+# julia> q(a)
+function (qubo::QUBO)(a::BitAssignment)
+    @assert false "TBD"
+end
+
+###############################################
 ################## utils ######################
 ###############################################
 
@@ -60,8 +75,7 @@ function enlarge(qubo::QUBO{T}, vars::Vector{<:AbstractVariable}) where T
     println(vars)
     n = sum(length.(vars))
     q = spzeros(T, n, n)
-    # TODO: fill
-    # must return QUBO,
+    @assert false "TBD"
     QUBO(vars, q, qubo.offset)
 end
 

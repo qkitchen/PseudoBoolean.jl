@@ -1,6 +1,17 @@
+import Base: size, length, isless, getindex
+
+export
+    BitVar,
+    BitVarArray,
+    size,
+    indexes,
+    name,
+    getindex,
+    BitAssignment
+
 name(v::AbstractVariable) = v.name
 
-struct BitVar <: AbstractVariable
+struct BitVar <: AbstractBitVariable
     name::String
     function BitVar(name::String)
         @assert length(name) > 0
@@ -11,7 +22,7 @@ end
 size(::BitVar) = 1 # BitVar always has one element
 length(::BitVar) = 1 # BitVar always has one element
 
-struct BitVarArray  <: AbstractVariable
+struct BitVarArray  <: AbstractBitVariable
     name::String
     size::Vector{Int}
     function BitVarArray(name::String,
@@ -26,7 +37,7 @@ end
 size(v::BitVarArray) = v.size
 length(v::BitVarArray) = prod(size(v))
 
-struct BitVarSubArray  <: AbstractVariable
+struct BitVarSubArray  <: AbstractBitVariable
     var::BitVarArray
     indexes::Vector{Int}
     function BitVarSubArray(var::BitVarArray,
@@ -51,13 +62,4 @@ function Base.getindex(var::BitVarArray, I::Vararg)
     BitVarSubArray(var, Int[I...])
 end
 
-isless(v::BitVar, w::BitVar) = (name(v) <= name(w))
-isless(v::BitVar, w::BitVarArray) = true
-isless(v::BitVarArray, w::BitVar) = false
-function isless(v::BitVarArray, w::BitVarArray)
-    if name(v) == name(w)
-        return size(v) <= size(w)
-    else
-        return size(v) <= size(w)
-    end
-end
+isless(v::AbstractBitVariable, w::AbstractBitVariable) = (name(v) < name(w))
