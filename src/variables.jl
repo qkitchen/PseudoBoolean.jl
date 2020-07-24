@@ -6,8 +6,7 @@ export
     size,
     indexes,
     name,
-    getindex,
-    BitAssignment
+    getindex
 
 name(v::AbstractVariable) = v.name
 
