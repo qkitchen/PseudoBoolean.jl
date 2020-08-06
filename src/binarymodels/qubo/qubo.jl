@@ -74,9 +74,18 @@ function enlarge(qubo::QUBO{T}, vars::Vector{<:AbstractVariable}) where T
     vars = sort(collect(unique(vcat(qubo.vars, vars))))
     println(vars)
     n = sum(length.(vars))
+    len_qubo = sum(length.(qubo.vars))
     q = spzeros(T, n, n)
-    @assert false "TBD"
-    QUBO(vars, q, qubo.offset)
+    for i = 1:len_qubo
+        new_i = findfirst(var -> var.name == qubo.vars[i].name, vars)
+        # TODO: fix the loop if we are sure Q is UpperTriangular
+        # for j = 1:len_qubo - i + 1
+        for j = 1:len_qubo
+            new_j = findfirst(var -> var.name == qubo.vars[j].name, vars)
+            q[new_i][new_j] = qubo.q[i][j]
+        end
+    end
+    return QUBO(vars, q, qubo.offset)
 end
 
 
